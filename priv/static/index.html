@@ -1,43 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ckochx Web Server</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            line-height: 1.6;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        h1 {
-            color: #333;
-        }
-        .info {
-            background: #f0f8ff;
-            padding: 1rem;
-            border-radius: 4px;
-            border-left: 4px solid #007acc;
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
-<body>
-    <h1>Welcome to Ckochx Web Server</h1>
-    
-    <div class="info">
-        <p>Your Elixir web server with Bandit is running successfully!</p>
-        <p>This server can serve static files from the <code>priv/static</code> directory.</p>
-    </div>
-    
-    <h2>Features</h2>
-    <ul>
-        <li>Static file serving</li>
-        <li>Powered by Elixir, Plug, and Bandit</li>
-        <li>Hot code reloading in development</li>
-    </ul>
-    
-    <p>Server running on port 4000</p>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-blue-900 min-h-screen transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">C</span>
+                    </div>
+                    <span class="text-xl font-semibold text-gray-800 dark:text-gray-100">Ckochx</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/" class="text-blue-600 font-medium">Home</a>
+                    <a href="/about" class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 transition-colors">About</a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <div class="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span>Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
+                Welcome to Ckochx
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                A modern Elixir web server built with Bandit, designed for serving static files with style and performance.
+            </p>
+        </div>
+
+        <!-- Status Card -->
+        <div class="mb-12 animate-slide-up">
+            <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Server Status: Running</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Your Elixir web server with Bandit is running successfully on port 4000!</p>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                <span class="font-medium">Directory:</span> 
+                                <code class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded text-xs">priv/static</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Features</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Static File Serving</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Efficiently serve CSS, JS, images, and other static assets with built-in caching.</p>
+                </div>
+
+                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Powered by Elixir</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Built with Elixir, Plug, and Bandit for maximum performance and reliability.</p>
+                </div>
+
+                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
+                    <div class="w-12 h-12 bg-gradient-to-r from-teal-500 to-green-500 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Hot Reloading</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Development-friendly with hot code reloading for rapid iteration.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Tech Stack</h2>
+            <div class="flex flex-wrap justify-center items-center gap-6">
+                <div class="flex items-center space-x-2 bg-purple-100 px-4 py-2 rounded-full">
+                    <div class="w-3 h-3 bg-purple-600 rounded-full"></div>
+                    <span class="text-purple-800 font-medium">Elixir</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-blue-100 px-4 py-2 rounded-full">
+                    <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                    <span class="text-blue-800 font-medium">Plug</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-green-100 px-4 py-2 rounded-full">
+                    <div class="w-3 h-3 bg-green-600 rounded-full"></div>
+                    <span class="text-green-800 font-medium">Bandit</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-teal-100 px-4 py-2 rounded-full">
+                    <div class="w-3 h-3 bg-teal-600 rounded-full"></div>
+                    <span class="text-teal-800 font-medium">Tailwind CSS</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-600 dark:text-gray-400 border-t border-gray-200/50 dark:border-gray-700/50 mt-16">
+        <p class="text-sm">Running on <span class="font-medium text-gray-800 dark:text-gray-200">localhost:4000</span></p>
+    </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme
+        if (currentTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            darkIcon.classList.remove('hidden');
+            lightIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

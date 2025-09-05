@@ -1,18 +1,24 @@
 defmodule Ckochx.WebServer do
   use Plug.Router
 
-  plug Plug.Logger
-  plug Plug.Static, 
-    at: "/", 
+  plug(Plug.Logger)
+
+  plug(Plug.Static,
+    at: "/",
     from: "priv/static",
     only: ~w(css js images fonts favicon.ico robots.txt),
     gzip: false
+  )
 
-  plug :match
-  plug :dispatch
+  plug(:match)
+  plug(:dispatch)
 
   get "/" do
     send_file(conn, 200, "priv/static/index.html")
+  end
+
+  get "/about" do
+    send_file(conn, 200, "priv/static/about.html")
   end
 
   match _ do
@@ -28,7 +34,7 @@ defmodule Ckochx.WebServer do
 
   def start_link(opts \\ []) do
     port = opts[:port] || 4000
-    
+
     Bandit.start_link(
       plug: __MODULE__,
       port: port,
