@@ -54,10 +54,19 @@ mix dev
 
 ### Production
 
-For production deployment:
+Build and deploy production releases:
 ```bash
-MIX_ENV=prod mix compile
-MIX_ENV=prod mix run --no-halt
+# Build release
+./scripts/build_release.sh [version]
+
+# Initial deployment
+./scripts/deploy.sh user@server 0.1.0 deploy
+
+# Hot upgrade (zero downtime)
+./scripts/deploy.sh user@server 0.2.0 upgrade
+
+# Rollback if needed
+./scripts/deploy.sh user@server 0.1.0 rollback
 ```
 
 ## Project Structure
@@ -122,6 +131,95 @@ excerpt: "A brief description"
 - **[Bandit](https://github.com/mtrudel/bandit)** - HTTP server
 - **[Earmark](https://github.com/pragdave/earmark)** - Markdown parser
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+
+## Deployment & Hot Upgrades
+
+Ckochx supports zero-downtime deployments using Erlang/OTP's hot code swapping capabilities.
+
+### Building Releases
+
+```bash
+# Build production release
+./scripts/build_release.sh
+
+# Build specific version
+./scripts/build_release.sh 0.2.0
+```
+
+This creates a self-contained release tarball with all dependencies.
+
+### Deployment Options
+
+#### Initial Deployment
+```bash
+# Deploy to server for the first time
+./scripts/deploy.sh user@myserver.com 0.1.0 deploy
+```
+
+This will:
+- Set up the release directory structure
+- Configure systemd service
+- Start the application
+
+#### Hot Upgrades (Zero Downtime)
+```bash
+# Upgrade running application without stopping
+./scripts/deploy.sh user@myserver.com 0.2.0 upgrade
+```
+
+Hot upgrades:
+- ✅ Zero downtime - users stay connected
+- ✅ Automatic rollback on failure
+- ✅ Health checks during upgrade
+- ✅ Preserves application state
+
+#### Rollback
+```bash
+# Rollback to previous version
+./scripts/deploy.sh user@myserver.com 0.1.0 rollback
+```
+
+### Environment Configuration
+
+Set these environment variables in production:
+
+- `PORT` - HTTP server port (default: 4000)
+- `LOG_LEVEL` - Logging level (debug/info/warn/error)
+- `HOST` - Server hostname
+- `MIX_ENV=prod` - Production environment
+
+### Monitoring & Operations
+
+```bash
+# Check service status
+systemctl status ckochx
+
+# View logs
+journalctl -u ckochx -f
+
+# Connect to running application
+/opt/ckochx/bin/ckochx remote
+
+# Execute commands remotely
+/opt/ckochx/bin/ckochx rpc "Ckochx.UpgradeManager.current_version()"
+```
+
+### Hot Upgrade Manager
+
+The `Ckochx.UpgradeManager` provides:
+- Automatic upgrade detection
+- Manual upgrade triggering
+- Health monitoring during upgrades
+- Rollback capabilities
+- Version management
+
+Enable automatic upgrades:
+```elixir
+config :ckochx,
+  enable_hot_upgrades: true,
+  auto_upgrade: true,
+  upgrade_check_interval: 30_000
+```
 
 ## License
 

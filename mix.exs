@@ -7,9 +7,16 @@ defmodule Ckochx.MixProject do
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      releases: releases(),
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:dev), do: ["lib", "dev"]
+  defp elixirc_paths(:test), do: ["lib", "dev", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
@@ -26,6 +33,20 @@ defmodule Ckochx.MixProject do
       {:bandit, "~> 1.0"},
       {:earmark, "~> 1.4"},
       {:file_system, "~> 1.0", only: :dev}
+    ]
+  end
+
+  defp releases do
+    [
+      ckochx: [
+        include_executables_for: [:unix],
+        applications: [runtime_tools: :permanent],
+        steps: [:assemble, :tar],
+        strip_beams: Mix.env() == :prod,
+        config_providers: [
+          {Config.Reader, {:system, "RELEASE_ROOT", "/app/releases/RELEASE_VSN/runtime.exs"}}
+        ]
+      ]
     ]
   end
 end

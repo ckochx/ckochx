@@ -4,3 +4,5 @@ All code should be simple and clean.
 
 Prefer writing code over importing dependencies.
 
+Compliation warning MUST NOT be ignored
+Always run `mix compile --warnings-as-errors` after making all changes. 

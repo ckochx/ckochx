@@ -7,9 +7,12 @@ defmodule Ckochx.Application do
 
   @impl true
   def start(_type, _args) do
+    port = Application.get_env(:ckochx, :port, 4000)
+
     children =
       [
-        {Ckochx.WebServer, [port: 4000]}
+        {Ckochx.WebServer, [port: port]},
+        Ckochx.UpgradeManager
       ] ++ dev_children()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -20,7 +23,7 @@ defmodule Ckochx.Application do
 
   defp dev_children do
     if Mix.env() == :dev do
-      [Ckochx.DevReloader]
+      [Dev.Reloader]
     else
       []
     end
