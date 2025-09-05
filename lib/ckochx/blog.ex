@@ -8,10 +8,10 @@ defmodule Ckochx.Blog do
 
   defmodule Post do
     @moduledoc "Struct representing a blog post"
-    
+
     defstruct [
       :slug,
-      :title, 
+      :title,
       :date,
       :author,
       :excerpt,
@@ -50,10 +50,11 @@ defmodule Ckochx.Blog do
 
   defp load_post(filename) do
     file_path = Path.join(@posts_dir, filename)
-    
+
     case File.read(file_path) do
       {:ok, content} ->
         parse_post(filename, content, file_path)
+
       {:error, _reason} ->
         nil
     end
@@ -62,7 +63,7 @@ defmodule Ckochx.Blog do
   defp parse_post(filename, content, file_path) do
     slug = Path.rootname(filename)
     extension = Path.extname(filename)
-    
+
     case extension do
       ".md" -> parse_markdown_post(slug, content, file_path)
       ".html" -> parse_html_post(slug, content, file_path)
@@ -75,9 +76,11 @@ defmodule Ckochx.Blog do
         case Earmark.as_html(body) do
           {:ok, html_content, _warnings} ->
             create_post(slug, metadata, html_content, file_path)
+
           {:error, _html, _errors} ->
             nil
         end
+
       nil ->
         nil
     end
@@ -87,6 +90,7 @@ defmodule Ckochx.Blog do
     case parse_html_metadata(content) do
       {metadata, body} ->
         create_post(slug, metadata, body, file_path)
+
       nil ->
         # If no metadata found, create basic post
         create_post(slug, %{}, content, file_path)
@@ -100,6 +104,7 @@ defmodule Ckochx.Blog do
           {:ok, metadata} -> {metadata, String.trim(markdown_content)}
           {:error, _} -> nil
         end
+
       _ ->
         nil
     end
@@ -113,6 +118,7 @@ defmodule Ckochx.Blog do
           {:ok, metadata} -> {metadata, String.trim(body)}
           {:error, _} -> nil
         end
+
       _ ->
         nil
     end
@@ -121,7 +127,7 @@ defmodule Ckochx.Blog do
   defp parse_yaml_metadata(yaml_content) do
     try do
       # Simple YAML parsing for basic key: value pairs
-      metadata = 
+      metadata =
         yaml_content
         |> String.split("\n")
         |> Enum.reduce(%{}, fn line, acc ->
@@ -130,11 +136,12 @@ defmodule Ckochx.Blog do
               clean_key = String.trim(key)
               clean_value = value |> String.trim() |> String.trim("\"")
               Map.put(acc, clean_key, clean_value)
+
             _ ->
               acc
           end
         end)
-      
+
       {:ok, metadata}
     rescue
       _ -> {:error, :invalid_yaml}
@@ -143,7 +150,7 @@ defmodule Ckochx.Blog do
 
   defp parse_metadata_lines(metadata_content) do
     try do
-      metadata = 
+      metadata =
         metadata_content
         |> String.split("\n")
         |> Enum.reduce(%{}, fn line, acc ->
@@ -152,11 +159,12 @@ defmodule Ckochx.Blog do
               clean_key = String.trim(key)
               clean_value = value |> String.trim() |> String.trim("\"")
               Map.put(acc, clean_key, clean_value)
+
             _ ->
               acc
           end
         end)
-      
+
       {:ok, metadata}
     rescue
       _ -> {:error, :invalid_metadata}
@@ -176,11 +184,13 @@ defmodule Ckochx.Blog do
   end
 
   defp parse_date(nil), do: Date.utc_today()
+
   defp parse_date(date_string) when is_binary(date_string) do
     case Date.from_iso8601(date_string) do
       {:ok, date} -> date
       {:error, _} -> Date.utc_today()
     end
   end
+
   defp parse_date(_), do: Date.utc_today()
 end

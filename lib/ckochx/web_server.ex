@@ -31,6 +31,7 @@ defmodule Ckochx.WebServer do
     case Ckochx.Blog.get_post(slug) do
       nil ->
         send_resp(conn, 404, "Blog post not found")
+
       post ->
         html = render_blog_post(post)
         send_resp(conn, 200, html)
@@ -62,7 +63,7 @@ defmodule Ckochx.WebServer do
 
   defp render_blog_index(posts) do
     posts_html = Enum.map_join(posts, "\n", &render_post_card/1)
-    
+
     """
     <!DOCTYPE html>
     <html lang="en" class="scroll-smooth">
