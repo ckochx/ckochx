@@ -3,7 +3,7 @@ import Config
 # Runtime configuration for releases
 
 # Configure the web server port from environment variable
-if port = System.get_env("PORT") do
+if port = System.get_env("PORT", "4000") do
   config :ckochx, port: String.to_integer(port)
 end
 
@@ -24,7 +24,7 @@ config :logger,
   level: String.to_existing_atom(System.get_env("LOG_LEVEL") || "info")
 
 # Ensure required environment variables are present
-required_env_vars = ["PORT"]
+required_env_vars = []
 missing_vars = Enum.filter(required_env_vars, &is_nil(System.get_env(&1)))
 
 if missing_vars != [] do

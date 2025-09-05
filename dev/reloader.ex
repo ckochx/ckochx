@@ -59,9 +59,10 @@ defmodule Dev.Reloader do
     case IEx.Helpers.recompile() do
       :ok ->
         Logger.info("✅ Code reloaded successfully")
-
-        # Clear blog post cache if we have one
         clear_blog_cache()
+
+      :noop ->
+        Logger.debug("📝 No changes detected")
 
       {:error, _} ->
         Logger.warning("⚠️  Compilation errors - please check your code")
