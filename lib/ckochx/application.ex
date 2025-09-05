@@ -7,13 +7,22 @@ defmodule Ckochx.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      {Ckochx.WebServer, [port: 4000]}
-    ]
+    children =
+      [
+        {Ckochx.WebServer, [port: 4000]}
+      ] ++ dev_children()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Ckochx.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp dev_children do
+    if Mix.env() == :dev do
+      [Ckochx.DevReloader]
+    else
+      []
+    end
   end
 end
