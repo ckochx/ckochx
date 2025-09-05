@@ -23,7 +23,8 @@ defmodule Ckochx.MixProject do
   defp deps do
     [
       {:plug, "~> 1.15"},
-      {:bandit, "~> 1.0"}
+      {:bandit, "~> 1.0"},
+      {:earmark, "~> 1.4"}
     ]
   end
 end
