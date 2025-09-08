@@ -39,4 +39,8 @@ I'm a Principal Engineer with 15+ years of experience building scalable systems 
 - **[ReqFuse](https://github.com/carsdotcom/req_fuse)**: Circuit breaker plugin for fault-tolerant HTTP requests
 - **[ExFactor](https://hexdocs.pm/ex_factor/readme.html)**: Lightweight CLI tool for refactoring Elixir code
 
-*Building the future, one system at a time.* ⚡
+## ✏️ Other Links:
+
+- https://medium.com/@ckochx
+
+*Building & rebuilding the future, one system at a time.* ⚡
