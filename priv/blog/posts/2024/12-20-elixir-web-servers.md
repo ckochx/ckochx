@@ -1,8 +1,9 @@
----
-title: "Why Choose Elixir for Web Servers?"
-date: "2024-01-20"
-author: "Developer"
-excerpt: "Discover the advantages of using Elixir for building high-performance web servers"
+%{
+  title: "Why Choose Elixir for Web Servers?",
+  author: "Developer",
+  excerpt: "Discover the advantages of using Elixir for building high-performance web servers",
+  tags: ["elixir", "web-servers", "performance", "architecture"]
+}
 ---
 
 # Why Choose Elixir for Web Servers?

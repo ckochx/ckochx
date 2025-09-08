@@ -1,8 +1,9 @@
----
-title: "Building ElixirNoDeps: A Terminal Presentation Tool with Zero Dependencies"
-date: 2024-09-05
-author: Christian Koch
-excerpt: "The story behind ElixirNoDeps - how a simple idea for ElixirConf became a full-featured terminal presentation tool with remote control capabilities, all built with zero external Mix dependencies."
+%{
+  title: "Building ElixirNoDeps: A Terminal Presentation Tool with Zero Dependencies",
+  author: "Christian Koch",
+  excerpt: "The story behind ElixirNoDeps - how a simple idea for ElixirConf became a full-featured terminal presentation tool with remote control capabilities, all built with zero external Mix dependencies.",
+  tags: ["elixir", "dependencies", "terminal", "presentation", "elixirconf"]
+}
 ---
 
 # Building ElixirNoDeps: A Terminal Presentation Tool with Zero Dependencies

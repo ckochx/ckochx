@@ -1,8 +1,9 @@
----
-title: "Getting Started with Ckochx"
-date: "2024-01-15"
-author: "Developer"
-excerpt: "Learn how to build modern web servers with Elixir, Plug, and Bandit"
+%{
+  title: "Getting Started with Ckochx",
+  author: "Developer",
+  excerpt: "Learn how to build modern web servers with Elixir, Plug, and Bandit",
+  tags: ["elixir", "web-development", "getting-started"]
+}
 ---
 
 # Getting Started with Ckochx
