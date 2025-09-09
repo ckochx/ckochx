@@ -12,7 +12,7 @@ defmodule Ckochx.Blog do
     @enforce_keys [:slug, :title, :date, :author, :content]
     defstruct [
       :slug,
-      :title, 
+      :title,
       :date,
       :author,
       :excerpt,
@@ -26,7 +26,7 @@ defmodule Ckochx.Blog do
       date = Date.from_iso8601!("#{year}-#{month}-#{day}")
       slug = id
 
-      struct!(__MODULE__, [
+      struct!(__MODULE__,
         slug: slug,
         title: Map.fetch!(attrs, :title),
         author: Map.get(attrs, :author, "Christian Koch"),
@@ -34,7 +34,7 @@ defmodule Ckochx.Blog do
         excerpt: Map.get(attrs, :excerpt, ""),
         content: body,
         tags: Map.get(attrs, :tags, [])
-      ])
+      )
     end
   end
 
@@ -46,35 +46,11 @@ defmodule Ckochx.Blog do
 
   @doc "Get all blog posts, sorted by date (newest first)"
   def list_posts do
-    @posts
-    |> Enum.sort_by(& &1.date, {:desc, Date})
+    Enum.sort_by(@posts, & &1.date, {:desc, Date})
   end
 
   @doc "Get a single blog post by slug"
   def get_post(slug) do
-    Enum.find(@posts, &(&1.slug == slug))
+    Enum.find(list_posts(), &(&1.slug == slug))
   end
-
-  @doc "Get recent posts (limit to n posts)"
-  def recent_posts(limit \\ 5) do
-    @posts
-    |> Enum.sort_by(& &1.date, {:desc, Date})
-    |> Enum.take(limit)
-  end
-
-  @doc "Get all unique tags from all posts"
-  def all_tags do
-    @posts
-    |> Enum.flat_map(& &1.tags)
-    |> Enum.uniq()
-    |> Enum.sort()
-  end
-
-  @doc "Get posts by tag"
-  def get_posts_by_tag(tag) do
-    @posts
-    |> Enum.filter(&(tag in &1.tags))
-    |> Enum.sort_by(& &1.date, {:desc, Date})
-  end
-
 end
