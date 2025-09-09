@@ -13,19 +13,11 @@ defmodule Ckochx.Application do
       [
         {Ckochx.WebServer, [port: port]},
         Ckochx.UpgradeManager
-      ] ++ dev_children()
+      ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Ckochx.Supervisor]
     Supervisor.start_link(children, opts)
-  end
-
-  defp dev_children do
-    if Mix.env() == :dev do
-      [Dev.Reloader]
-    else
-      []
-    end
   end
 end
