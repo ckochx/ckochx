@@ -77,7 +77,7 @@ defmodule Ckochx.WebServer do
     .animate-slide-up { animation: slideUp 0.6s ease-out; }
     """
 
-    render_page("Christian Koch Website", "home", [animation_styles], """
+    render_page("Christian Koch's Website: ckochx.com", "home", [animation_styles], """
     <main class="max-w-6xl mx-auto px-6 py-12">
         <div class="text-center mb-16 animate-fade-in">
             <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
@@ -176,7 +176,7 @@ defmodule Ckochx.WebServer do
   end
 
   defp render_about_page do
-    render_page("About - Ckochx Web Server", "about", [], """
+    render_page("About - Christian Koch's Website: ckochx.com", "about", [], """
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
@@ -328,7 +328,7 @@ defmodule Ckochx.WebServer do
   defp render_blog_index(posts) do
     posts_html = Enum.map_join(posts, "\n", &render_post_card/1)
 
-    render_page("Blog - Ckochx Web Server", "blog", [], """
+    render_page("Blog - Christian Koch's Website", "blog", [], """
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
