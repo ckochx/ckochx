@@ -21,7 +21,7 @@ defmodule Ckochx.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :sasl],
       mod: {Ckochx.Application, []}
     ]
   end
@@ -45,9 +45,6 @@ defmodule Ckochx.MixProject do
         applications: [runtime_tools: :permanent],
         steps: [:assemble, :tar],
         strip_beams: Mix.env() == :prod,
-        config_providers: [
-          {Config.Reader, {:system, "RELEASE_ROOT", "/app/releases/RELEASE_VSN/runtime.exs"}}
-        ]
       ]
     ]
   end
