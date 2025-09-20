@@ -69,21 +69,29 @@ defmodule Ckochx.WebServer do
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-8">
-                About Ckochx
+                About me.
             </h1>
         </div>
 
-        <!-- Which Christian Koch section -->
-        <div class="mb-12">
-            <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+        <!-- Content Sections -->
+        <div class="space-y-8 mb-12">
+            <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Who is <em>ck</em>?</h2>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    My name is Christian Koch. I'm a principal engineer; conference speaker; (software) engineering leader; (occasionally) a writer; and a sourdough bread baker.
+                </p>
+            </section>
+
+            <!-- Which Christian Koch section -->
+            <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
                 <div class="text-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Which Christian Koch is this?</h2>
-                    <p class="text-gray-600 dark:text-gray-300">There are many Christian Kochs out there. Here's how to identify the right one:</p>
+                    <p class="text-gray-600 dark:text-gray-300">There are many Christian Kochs out there. (Honestly more than I was expecting.) Here's how to identify the right one:</p>
                 </div>
                 <ul class="space-y-3 max-w-2xl mx-auto">
                     <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span class="text-gray-700 dark:text-gray-300">✅ The right one:</span>
-                        <a href="https://www.linkedin.com/in/ckochx/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors font-medium">This one</a>
+                        <span class="text-gray-700 dark:text-gray-300">The right one: 🐱‍💻</span>
+                        <a href="https://www.linkedin.com/in/ckochx/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors font-medium">👈 This one</a>
                     </li>
                     <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                         <span class="text-gray-700 dark:text-gray-300">❌ Not the right one:</span>
@@ -102,10 +110,10 @@ defmodule Ckochx.WebServer do
                         <a href="https://scholar.google.com/citations?user=ncGPvvAAAAAJ&hl=de" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Nyet</a>
                     </li>
                 </ul>
-            </div>
+            </section>
         </div>
 
-        <!-- Content Sections -->
+        <!-- Additional Content Sections -->
         <div class="space-y-8">
             <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">What is Ckochx?</h2>
