@@ -98,7 +98,7 @@ defmodule Ckochx.WebServer do
                         <a href="https://www.linkedin.com/in/christianjkoch/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">No</a>
                     </li>
                     <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span class="text-gray-700 dark:text-gray-300">❌ Also not:</span>
+                        <span class="text-gray-700 dark:text-gray-300">❌ Also not this one:</span>
                         <a href="http://christianko.ch/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">아니요</a>
                     </li>
                     <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -106,20 +106,50 @@ defmodule Ckochx.WebServer do
                         <a href="https://www.researchgate.net/profile/Christian-Koch-14" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Nein</a>
                     </li>
                     <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span class="text-gray-700 dark:text-gray-300">❌ Not this either:</span>
+                        <span class="text-gray-700 dark:text-gray-300">❌ Not this one either:</span>
                         <a href="https://scholar.google.com/citations?user=ncGPvvAAAAAJ&hl=de" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Nyet</a>
                     </li>
                 </ul>
             </section>
-        </div>
 
+            <!-- See me speak -->
+            <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Where can I see your talks?</h2>
+                    <p class="text-gray-600 dark:text-gray-300">I have been a speaker at Elixir Conf several times. Fortunately they keep inviting me back!</p>
+                </div>
+                <ul class="space-y-3 max-w-2xl mx-auto">
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">ElixirConf 2025</span>
+
+                        <a href="https://elixirconf.com/talks/elixir-is-all-you-need-build-production-ready-apps-without-dependencies/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors font-medium">Elixir is all you need</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">ElixirConf 2024</span>
+                        <a href="https://www.youtube.com/watch?v=dm-fE7GOV04" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Engineering Your Promotion for Elixir-ists</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">ElixirConf 2023</span>
+                        <a href="https://www.youtube.com/watch?v=Xat7AFoNF88" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Driving Performance with Req and Finch at Cars.com</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">ElixirConf 2022</span>
+                        <a href="https://www.youtube.com/watch?v=fds0aIM0CgU" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Have you got the ExFactor?</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">RailsConf 2017</span>
+                        <a href="https://www.youtube.com/watch?v=fjrD0_OempI" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Rails to Phoenix</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
         <!-- Additional Content Sections -->
         <div class="space-y-8">
             <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">What is Ckochx?</h2>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">What is ckochx.com?</h2>
                 <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                    Ckochx is a lightweight, modern web server framework built with Elixir that focuses on serving static files efficiently. 
-                    It combines the power of Elixir's fault-tolerant architecture with the performance of the Bandit HTTP server.
+                    Ckochx is a lightweight, modern web server built with Elixir and <a href = "https://hexdocs.pm/nimble_publisher/NimblePublisher.html" target="_blank">nimble_publisher</a> that focuses on serving static files efficiently.
+                    It combines the power of Elixir's (and the BEAM's) fault-tolerant architecture with the performance of the Bandit HTTP server.
                 </p>
                 <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
                     Designed for simplicity and performance, Ckochx is perfect for serving documentation, SPAs, 
@@ -229,22 +259,6 @@ defmodule Ckochx.WebServer do
                         </li>
                     </ul>
                 </div>
-            </section>
-
-            <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Getting Started</h2>
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-4">
-                    <code class="text-sm text-gray-800 dark:text-gray-100">
-                        # Install dependencies<br>
-                        mix deps.get<br><br>
-                        # Start the server<br>
-                        mix run --no-halt
-                    </code>
-                </div>
-                <p class="text-gray-600 dark:text-gray-300">
-                    The server will start on <code class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded text-sm">localhost:4000</code> 
-                    and serve files from the <code class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded text-sm">priv/static</code> directory.
-                </p>
             </section>
         </div>
     </main>
