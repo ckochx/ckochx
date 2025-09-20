@@ -14,7 +14,8 @@ defmodule Ckochx.WebServer do
   plug(:dispatch)
 
   get "/" do
-    html = render_home_page()
+    posts = Ckochx.Blog.list_posts()
+    html = render_blog_index(posts)
     send_resp(conn, 200, html)
   end
 
@@ -63,128 +64,45 @@ defmodule Ckochx.WebServer do
 
   # Private template rendering functions
 
-  defp render_home_page do
-    animation_styles = """
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    .animate-fade-in { animation: fadeIn 0.8s ease-in-out; }
-    .animate-slide-up { animation: slideUp 0.6s ease-out; }
-    """
-
-    render_page("Christian Koch's Website: ckochx.com", "home", [animation_styles], """
-    <main class="max-w-6xl mx-auto px-6 py-12">
-        <div class="text-center mb-16 animate-fade-in">
-            <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
-                Welcome to ckochx.com; the personal server for Christian Koch.
-            </h1>
-            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                A modern Elixir web server built with Bandit, designed for serving static files with style and performance.
-            </p>
-        </div>
-
-        <!-- Status Card -->
-        <div class="mb-12 animate-slide-up">
-            <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8">
-                <div class="flex items-start space-x-4">
-                    <div class="flex-shrink-0">
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Server Status: Running</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">Your Elixir web server with Bandit is running successfully on port 4000!</p>
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                            <p class="text-sm text-gray-700 dark:text-gray-300">
-                                <span class="font-medium">Directory:</span> 
-                                <code class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded text-xs">priv/static</code>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Features Grid -->
-        <div class="mb-12">
-            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Features</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Static File Serving</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Efficiently serve CSS, JS, images, and other static assets with built-in caching.</p>
-                </div>
-
-                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Powered by Elixir</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Built with Elixir, Plug, and Bandit for maximum performance and reliability.</p>
-                </div>
-
-                <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                    <div class="w-12 h-12 bg-gradient-to-r from-teal-500 to-green-500 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Hot Reloading</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Development-friendly with hot code reloading for rapid iteration.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tech Stack -->
-        <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
-            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">Tech Stack</h2>
-            <div class="flex flex-wrap justify-center items-center gap-6">
-                <div class="flex items-center space-x-2 bg-purple-100 px-4 py-2 rounded-full">
-                    <div class="w-3 h-3 bg-purple-600 rounded-full"></div>
-                    <span class="text-purple-800 font-medium">Elixir</span>
-                </div>
-                <div class="flex items-center space-x-2 bg-blue-100 px-4 py-2 rounded-full">
-                    <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
-                    <span class="text-blue-800 font-medium">Plug</span>
-                </div>
-                <div class="flex items-center space-x-2 bg-green-100 px-4 py-2 rounded-full">
-                    <div class="w-3 h-3 bg-green-600 rounded-full"></div>
-                    <span class="text-green-800 font-medium">Bandit</span>
-                </div>
-                <div class="flex items-center space-x-2 bg-teal-100 px-4 py-2 rounded-full">
-                    <div class="w-3 h-3 bg-teal-600 rounded-full"></div>
-                    <span class="text-teal-800 font-medium">Tailwind CSS</span>
-                </div>
-            </div>
-        </div>
-    </main>
-    """)
-  end
-
   defp render_about_page do
     render_page("About - Christian Koch's Website: ckochx.com", "about", [], """
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
+            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-8">
                 About Ckochx
             </h1>
-            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Learn more about this modern Elixir web server framework
-            </p>
+        </div>
+
+        <!-- Which Christian Koch section -->
+        <div class="mb-12">
+            <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Which Christian Koch is this?</h2>
+                    <p class="text-gray-600 dark:text-gray-300">There are many Christian Kochs out there. Here's how to identify the right one:</p>
+                </div>
+                <ul class="space-y-3 max-w-2xl mx-auto">
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">✅ The right one:</span>
+                        <a href="https://www.linkedin.com/in/ckochx/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors font-medium">This one</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">❌ Not the right one:</span>
+                        <a href="https://www.linkedin.com/in/christianjkoch/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">No</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">❌ Also not:</span>
+                        <a href="http://christianko.ch/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">아니요</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">❌ Nope:</span>
+                        <a href="https://www.researchgate.net/profile/Christian-Koch-14" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Nein</a>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">❌ Not this either:</span>
+                        <a href="https://scholar.google.com/citations?user=ncGPvvAAAAAJ&hl=de" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Nyet</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Content Sections -->
@@ -335,7 +253,7 @@ defmodule Ckochx.WebServer do
                 Blog
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Insights, tutorials, and thoughts on web development with Elixir
+                Thoughts on software engineering and working with Elixir
             </p>
         </div>
         

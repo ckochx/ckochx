@@ -44,7 +44,7 @@ defmodule Ckochx.MixProject do
         include_executables_for: [:unix],
         applications: [runtime_tools: :permanent],
         steps: [:assemble, :tar],
-        strip_beams: Mix.env() == :prod,
+        strip_beams: Mix.env() == :prod
       ]
     ]
   end
