@@ -472,33 +472,86 @@ defmodule Ckochx.WebServer do
     """
     <script>
         const themeToggle = document.getElementById('theme-toggle');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
-        
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        
-        if (currentTheme === 'dark') {
-            document.documentElement.classList.add('dark');
-            darkIcon.classList.remove('hidden');
-            lightIcon.classList.add('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            lightIcon.classList.remove('hidden');
-            darkIcon.classList.add('hidden');
-        }
-        
-        themeToggle.addEventListener('click', function() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                lightIcon.classList.remove('hidden');
-                darkIcon.classList.add('hidden');
+
+        // Light mode elements (sun primary, moon secondary)
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        // Dark mode elements (moon primary, sun secondary)
+        const moonIconPrimary = document.getElementById('moon-icon-primary');
+        const sunIconSecondary = document.getElementById('sun-icon-secondary');
+
+        // Detect user's system preference, fallback to light
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
+
+        function updateThemeIcons(isDark, animate = false) {
+            if (animate) {
+                // Add swapping animation
+                const exitingIcons = isDark ? [sunIcon, moonIcon] : [moonIconPrimary, sunIconSecondary];
+                const enteringIcons = isDark ? [moonIconPrimary, sunIconSecondary] : [sunIcon, moonIcon];
+
+                // Step 1: Scale down and rotate exiting icons
+                exitingIcons.forEach(icon => {
+                    icon.style.transform = 'scale(0.8) rotate(180deg)';
+                    icon.style.opacity = '0';
+                });
+
+                // Step 2: After half the animation, swap visibility and scale up entering icons
+                setTimeout(() => {
+                    exitingIcons.forEach(icon => {
+                        icon.classList.add('hidden');
+                        icon.style.transform = '';
+                        icon.style.opacity = '';
+                    });
+
+                    enteringIcons.forEach(icon => {
+                        icon.classList.remove('hidden');
+                        icon.style.transform = 'scale(0.8) rotate(-180deg)';
+                        icon.style.opacity = '0';
+                    });
+
+                    // Step 3: Animate entering icons to normal state
+                    setTimeout(() => {
+                        enteringIcons.forEach(icon => {
+                            icon.style.transform = 'scale(1) rotate(0deg)';
+                            icon.style.opacity = '';
+                        });
+                    }, 50);
+                }, 250);
+
             } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                darkIcon.classList.remove('hidden');
-                lightIcon.classList.add('hidden');
+                // No animation - instant swap
+                if (isDark) {
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.add('hidden');
+                    moonIconPrimary.classList.remove('hidden');
+                    sunIconSecondary.classList.remove('hidden');
+                } else {
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIconPrimary.classList.add('hidden');
+                    sunIconSecondary.classList.add('hidden');
+                }
             }
+
+            // Update theme
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Set initial theme
+        updateThemeIcons(currentTheme === 'dark');
+
+        themeToggle.addEventListener('click', function() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme === 'dark', true); // Enable animation on click
         });
     </script>
     """
