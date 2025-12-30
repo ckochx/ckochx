@@ -268,20 +268,64 @@ defmodule Ckochx.WebServer do
   defp render_blog_index(posts) do
     posts_html = Enum.map_join(posts, "\n", &render_post_card/1)
 
-    render_page("Blog - Christian Koch's Website", "blog", [], """
+    render_page("Christian Koch's Website", "home", [], """
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-6">
-                Blog
+                Welcome
             </h1>
             <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Thoughts on software engineering and working with Elixir
+                Principal engineer, conference speaker, engineering leader, and sourdough baker
             </p>
         </div>
-        
-        <div class="space-y-8">
-            #{posts_html}
-        </div>
+
+        <!-- Links Section -->
+        <section class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50 mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Speaking Events</h2>
+                <p class="text-gray-600 dark:text-gray-300">Watch my talks from conferences and events</p>
+            </div>
+            <ul class="space-y-3 max-w-2xl mx-auto">
+                <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span class="text-gray-700 dark:text-gray-300">ElixirConf 2025</span>
+                    <a href="https://elixirconf.com/talks/elixir-is-all-you-need-build-production-ready-apps-without-dependencies/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors font-medium">Elixir is all you need</a>
+                </li>
+                <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span class="text-gray-700 dark:text-gray-300">ElixirConf 2024</span>
+                    <a href="https://www.youtube.com/watch?v=dm-fE7GOV04" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Engineering Your Promotion for Elixir-ists</a>
+                </li>
+                <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span class="text-gray-700 dark:text-gray-300">ElixirConf 2023</span>
+                    <a href="https://www.youtube.com/watch?v=Xat7AFoNF88" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Driving Performance with Req and Finch at Cars.com</a>
+                </li>
+                <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span class="text-gray-700 dark:text-gray-300">ElixirConf 2022</span>
+                    <a href="https://www.youtube.com/watch?v=fds0aIM0CgU" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Have you got the ExFactor?</a>
+                </li>
+                <li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span class="text-gray-700 dark:text-gray-300">RailsConf 2017</span>
+                    <a href="https://www.youtube.com/watch?v=fjrD0_OempI" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 underline underline-offset-2 transition-colors">Rails to Phoenix</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Blog Section -->
+        <section>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Latest Blog Posts</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    Thoughts on software engineering and working with Elixir
+                </p>
+            </div>
+            <div class="space-y-8">
+                #{posts_html}
+            </div>
+            <div class="text-center mt-8">
+                <a href="/blog" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium">
+                    View All Posts →
+                </a>
+            </div>
+        </section>
     </main>
     """)
   end
